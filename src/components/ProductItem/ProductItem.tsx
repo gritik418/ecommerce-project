@@ -49,15 +49,16 @@ const ProductItem = ({ product }: { product: Product }) => {
 
   return (
     <div className="flex flex-col overflow-hidden p-4 bg-white rounded-xl">
-      <Link href={`/product/${product.slug}`}>
+      <Link
+        className="h-[250px] flex items-center justify-center"
+        href={`/product/${product.slug}`}
+      >
         <Image
-          src={
-            "https://res.cloudinary.com/dlsakkwta/image/upload/v1751138048/trove/products/twrxvdjltlkbuawevn2i.png"
-          }
+          src={product.thumbnail}
           alt={product.title}
           height={300}
           width={300}
-          className="rounded-xl"
+          className="rounded-xl max-h-full object-contain"
         />
       </Link>
       <div className="flex flex-col mt-1">
