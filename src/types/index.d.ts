@@ -10,3 +10,10 @@ interface Product {
   rating: number;
   category: string;
 }
+
+interface FilterType {
+  minPrice?: number;
+  maxPrice?: number;
+  category: string;
+  brands: string[];
+}

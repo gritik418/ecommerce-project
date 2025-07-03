@@ -5,7 +5,7 @@ import React from "react";
 const Navbar = () => {
   return (
     <>
-      <nav className="hidden sm:flex border py-5 w-full bg-[#0056A6]">
+      <nav className="hidden sm:flex border py-5 w-full bg-[var(--primary)]">
         <div className="flex items-center gap-2 container mx-auto justify-between">
           <h1 className="text-4xl font-bold text-white">Logo</h1>
 
@@ -40,7 +40,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <nav className="flex sm:hidden gap-1 px-3 py-5 w-full bg-[#0056A6]">
+      <nav className="flex sm:hidden gap-1 px-3 py-5 w-full bg-[var(--primary)]">
         <div className="flex gap-3 flex-col items-center container mx-auto justify-between">
           <div className="flex w-full justify-between">
             <h1 className="text-4xl font-bold text-white">Logo</h1>
