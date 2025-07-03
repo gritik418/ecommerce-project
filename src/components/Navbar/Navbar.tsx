@@ -1,13 +1,21 @@
+"use client";
+import { selectCartItemsCount } from "@/store/slices/cartSlice";
 import { Search, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const cartCount = useSelector(selectCartItemsCount);
+
   return (
     <>
       <nav className="hidden sm:flex border py-5 w-full bg-[var(--primary)]">
         <div className="flex items-center gap-2 container mx-auto justify-between">
-          <h1 className="text-4xl font-bold text-white">Logo</h1>
+          <Link href={"/"} className="text-4xl font-bold text-white">
+            Logo
+          </Link>
 
           <div className="flex border h-12 px-4 w-[350px] border-white/50 rounded-lg items-center gap-4">
             <Search className="text-white" />
@@ -19,13 +27,18 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center h-12 gap-6">
-            <button className="flex cursor-pointer relative h-full gap-2 bg-blue-950/80 text-white px-7 rounded-xl font-bold text-base items-center">
+            <Link
+              href={"/cart"}
+              className="flex cursor-pointer relative h-full gap-2 bg-blue-950/80 text-white px-7 rounded-xl font-bold text-base items-center"
+            >
               <ShoppingCart className="h-5" />
               Cart
-              <p className="flex text-xs items-center justify-center text-blue-950 absolute bg-white h-4 w-4 -top-0.5 rounded-full -right-0.5">
-                3
-              </p>
-            </button>
+              {cartCount > 0 && (
+                <p className="flex text-xs items-center justify-center text-blue-950 absolute bg-white h-5 w-5 -top-0.5 rounded-full -right-0.5">
+                  {cartCount > 9 ? "9+" : cartCount}
+                </p>
+              )}
+            </Link>
 
             <div className="flex h-11 w-11 rounded-full overflow-hidden cursor-pointer">
               <Image
@@ -43,16 +56,23 @@ const Navbar = () => {
       <nav className="flex sm:hidden gap-1 px-3 py-5 w-full bg-[var(--primary)]">
         <div className="flex gap-3 flex-col items-center container mx-auto justify-between">
           <div className="flex w-full justify-between">
-            <h1 className="text-4xl font-bold text-white">Logo</h1>
+            <Link href={"/"} className="text-4xl font-bold text-white">
+              Logo
+            </Link>
 
             <div className="flex items-center h-12 gap-6">
-              <button className="flex cursor-pointer relative h-full gap-2 bg-blue-950/80 text-white px-7 rounded-xl font-bold text-base items-center">
+              <Link
+                href={"/cart"}
+                className="flex cursor-pointer relative h-full gap-2 bg-blue-950/80 text-white px-7 rounded-xl font-bold text-base items-center"
+              >
                 <ShoppingCart className="h-5" />
                 Cart
-                <p className="flex text-xs items-center justify-center text-blue-950 absolute bg-white h-4 w-4 -top-0.5 rounded-full -right-0.5">
-                  3
-                </p>
-              </button>
+                {cartCount > 0 && (
+                  <p className="flex text-xs items-center justify-center text-blue-950 absolute bg-white h-5 w-5 -top-0.5 rounded-full -right-0.5">
+                    {cartCount > 9 ? "9+" : cartCount}
+                  </p>
+                )}
+              </Link>
 
               <div className="flex h-11 w-11 rounded-full overflow-hidden cursor-pointer">
                 <Image

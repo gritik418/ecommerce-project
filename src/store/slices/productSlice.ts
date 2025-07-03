@@ -2,12 +2,12 @@ import { dummyProducts } from "@/data/products";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-interface StateType {
+interface ProductState {
   products: Product[];
   selectedProduct?: Product;
 }
 
-const initialState: StateType = {
+const initialState: ProductState = {
   products: dummyProducts,
   selectedProduct: undefined,
 };

@@ -21,6 +21,7 @@ export default function Home() {
     brands: [],
   });
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+
   useEffect(() => {
     let filtered = products;
     let prices = products.map((product) => product.price);

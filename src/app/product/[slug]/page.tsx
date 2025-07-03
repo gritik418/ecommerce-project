@@ -1,13 +1,15 @@
 "use client";
 import ImageGallery from "@/components/ImageGallery/ImageGallery";
+import { addToCart } from "@/store/slices/cartSlice";
 import { getProduct, selectSelectedProduct } from "@/store/slices/productSlice";
 import { AppDispatch } from "@/store/store";
 import { Star, StarHalf } from "lucide-react";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
-const ProductPage = ({}: any) => {
+const ProductPage = () => {
   const { slug } = useParams();
   const [quantity, setQuantity] = useState<number>(1);
   const dispatch = useDispatch<AppDispatch>();
@@ -57,9 +59,16 @@ const ProductPage = ({}: any) => {
     return stars;
   };
 
+  const handleAddToCart = () => {
+    dispatch(addToCart({ product, quantity: quantity }));
+    toast.success("Added to cart!");
+  };
+
   useEffect(() => {
     dispatch(getProduct(slug));
   }, [slug, dispatch]);
+
+  if (product?.slug !== slug) return;
 
   return (
     <div className="min-h-[80vh] px-4 sm:px-0 py-10">
@@ -131,11 +140,19 @@ const ProductPage = ({}: any) => {
           </div>
 
           <div className="flex mt-7 justify-end gap-4">
-            <button className="px-4 py-2 font-semibold cursor-pointer rounded-lg hover:shadow-lg transition-shadow ease-in-out duration-300 shadow">
+            <button
+              onClick={handleAddToCart}
+              className="px-4 py-2 font-semibold cursor-pointer rounded-lg hover:shadow-lg transition-shadow ease-in-out duration-300 shadow"
+            >
               Add to Cart
             </button>
 
-            <button className="px-4 py-2 rounded-lg bg-[var(--primary)] text-white font-semibold cursor-pointer hover:shadow-lg transition-all ease-in-out duration-300 shadow">
+            <button
+              onClick={() => {
+                alert("Buy Now Clicked.");
+              }}
+              className="px-4 py-2 rounded-lg bg-[var(--primary)] text-white font-semibold cursor-pointer hover:shadow-lg transition-all ease-in-out duration-300 shadow"
+            >
               Buy Now
             </button>
           </div>

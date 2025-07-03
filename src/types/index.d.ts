@@ -17,3 +17,8 @@ interface FilterType {
   category: string;
   brands: string[];
 }
+
+interface CartItem {
+  product: Product;
+  quantity: number;
+}

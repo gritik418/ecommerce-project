@@ -1,8 +1,16 @@
+import { addToCart } from "@/store/slices/cartSlice";
+import { AppDispatch } from "@/store/store";
 import { Star, StarHalf } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const ProductItem = ({ product }: { product: Product }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const generateRatingStars = (rating: number) => {
     const fullStars = Math.floor(rating);
     const pointValue = rating % 1;
@@ -47,6 +55,13 @@ const ProductItem = ({ product }: { product: Product }) => {
     return stars;
   };
 
+  const handleAddToCart = () => {
+    setLoading(true);
+    dispatch(addToCart({ product, quantity: 1 }));
+    toast.success("Added to cart!");
+    setLoading(false);
+  };
+
   return (
     <div className="flex flex-col overflow-hidden p-4 bg-white rounded-xl">
       <Link
@@ -75,8 +90,11 @@ const ProductItem = ({ product }: { product: Product }) => {
         </div>
       </div>
 
-      <button className="bg-[var(--primary)] cursor-pointer rounded-xl text-white p-3 font-semibold text-xl mt-4">
-        Add to Cart
+      <button
+        onClick={handleAddToCart}
+        className="bg-[var(--primary)] hover:bg-[#1574cd] transition-colors ease-in-out duration-300 cursor-pointer rounded-xl text-white p-3 font-semibold text-xl mt-4"
+      >
+        {loading ? "Processing..." : "Add to Cart"}
       </button>
     </div>
   );
