@@ -1,5 +1,6 @@
 "use client";
 import Filters from "@/components/Filters/Filters";
+import ProductItem from "@/components/ProductItem/ProductItem";
 import { selectProducts } from "@/store/slices/productSlice";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -95,7 +96,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen bg-blue-50">
       <div className="flex container gap-6 mx-auto py-12">
-        <div className="flex w-[300px]">
+        <div className="flex w-[380px]">
           <Filters
             categories={categories}
             brands={brands}
@@ -106,10 +107,20 @@ export default function Home() {
           />
         </div>
 
-        <div className="flex flex-col grow p-1">
+        <div className="flex flex-col grow p-1 w-full gap-5">
           <h1 className="text-blue-950 text-4xl font-bold">Product Listing</h1>
 
-          <div className="flex flex-col"></div>
+          {filteredProducts && filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 justify-center w-full">
+              {filteredProducts.map((product) => (
+                <ProductItem key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="py-40 flex items-center flex-col">
+              <p className="text-2xl font-semibold">Sorry, no results found!</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

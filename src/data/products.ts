@@ -114,7 +114,7 @@ export const dummyProducts: Product[] = [
     title: "Leather Wallet for Men",
     description: "Elegant and durable wallet with multiple compartments.",
     brand: "Urban Hide",
-    thumbnail: "https://cdn.dummyjson.com/product-images/20/thumbnail.jpg",
+    thumbnail: "https://cdn.dummyjson.com/product-images/20/1.jpg",
     images: [
       "https://cdn.dummyjson.com/product-images/20/1.jpg",
       "https://cdn.dummyjson.com/product-images/20/2.jpg",
