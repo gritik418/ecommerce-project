@@ -1,7 +1,9 @@
 "use client";
 import Filters from "@/components/Filters/Filters";
+import FiltersSidebar from "@/components/FiltersSidebar/FiltersSidebar";
 import ProductItem from "@/components/ProductItem/ProductItem";
 import { selectProducts } from "@/store/slices/productSlice";
+import { Filter } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -11,6 +13,7 @@ export default function Home() {
   const categorySearchParam = searchParams.get("category");
   const priceSearchParam = searchParams.get("price");
   const searchQuery = searchParams.get("search");
+  const [showSidebar, setShowSidebar] = useState<boolean>(false);
 
   const products = useSelector(selectProducts);
   const [minPrice, setMinPrice] = useState<number>();
@@ -107,43 +110,70 @@ export default function Home() {
   }, [priceSearchParam, categorySearchParam]);
 
   return (
-    <div className="flex min-h-screen bg-blue-50/50">
-      <div className="flex container gap-6 mx-auto py-12">
-        <div className="flex w-[380px]">
-          <Filters
-            categories={categories}
-            brands={brands}
-            maxPrice={maxPrice!}
-            minPrice={minPrice!}
-            setFilters={setFilters}
-            filters={filters}
-          />
-        </div>
+    <>
+      <div className="flex min-h-screen bg-blue-50/50">
+        <div className="flex container gap-6 mx-auto py-12">
+          <div className="sm:flex w-[380px] hidden">
+            <Filters
+              categories={categories}
+              brands={brands}
+              maxPrice={maxPrice!}
+              minPrice={minPrice!}
+              setFilters={setFilters}
+              filters={filters}
+            />
+          </div>
 
-        <div className="flex flex-col grow p-1 w-full gap-5">
-          <h1 className="text-blue-950 text-4xl font-bold">Product Listing</h1>
-          {searchQuery && (
-            <p className="text-lg font-semibold text-gray-600">
-              Showing results for:{" "}
-              <span className="text-gray-500 font-medium">
-                &apos;{searchQuery}&apos;
-              </span>
-            </p>
-          )}
+          <div className="flex flex-col grow p-1 w-full gap-5">
+            <div className="flex justify-between items-center">
+              <h1 className="text-blue-950 text-4xl font-bold">
+                Product Listing
+              </h1>
 
-          {filteredProducts && filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 justify-center w-full">
-              {filteredProducts.map((product) => (
-                <ProductItem key={product.id} product={product} />
-              ))}
+              <div
+                onClick={() => setShowSidebar(true)}
+                className="flex sm:hidden p-2 bg-white rounded shadow"
+              >
+                <Filter />
+              </div>
             </div>
-          ) : (
-            <div className="py-40 flex items-center flex-col">
-              <p className="text-2xl font-semibold">Sorry, no results found!</p>
-            </div>
-          )}
+            {searchQuery && (
+              <p className="text-lg font-semibold text-gray-600">
+                Showing results for:{" "}
+                <span className="text-gray-500 font-medium">
+                  &apos;{searchQuery}&apos;
+                </span>
+              </p>
+            )}
+
+            {filteredProducts && filteredProducts.length > 0 ? (
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 justify-center w-full">
+                {filteredProducts.map((product) => (
+                  <ProductItem key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="py-40 flex items-center flex-col">
+                <p className="text-2xl font-semibold">
+                  Sorry, no results found!
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      {showSidebar && (
+        <FiltersSidebar
+          categories={categories}
+          brands={brands}
+          maxPrice={maxPrice!}
+          minPrice={minPrice!}
+          setFilters={setFilters}
+          filters={filters}
+          setShowSidebar={setShowSidebar}
+        />
+      )}
+    </>
   );
 }

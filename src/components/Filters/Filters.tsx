@@ -33,19 +33,16 @@ const Filters = ({
   };
 
   return (
-    <div className="bg-[var(--primary)] w-full h-max p-5 rounded-xl space-y-6">
-      <h2 className="text-2xl text-white font-semibold">Filters</h2>
+    <div className="sm:bg-[var(--primary)] sm:text-white text-black w-full h-max p-5 rounded-xl space-y-6">
+      <h2 className="text-2xl font-semibold">Filters</h2>
 
       <div className="flex flex-col">
-        <p className="text-xl text-white font-semibold mb-3">Category</p>
+        <p className="text-xl font-semibold mb-3">Category</p>
 
         <div className="flex flex-col gap-2">
           {categories.map((category) => {
             return (
-              <div
-                key={category}
-                className="flex gap-2 text-gray-200 items-center"
-              >
+              <div key={category} className="flex gap-2 items-center">
                 <CategorySelector
                   category={category}
                   filters={filters}
@@ -59,7 +56,7 @@ const Filters = ({
       </div>
 
       <div className="flex flex-col">
-        <p className="text-xl text-white font-semibold mb-2">Price</p>
+        <p className="text-xl font-semibold mb-2">Price</p>
 
         <div className="px-2">
           <Slider
@@ -89,7 +86,7 @@ const Filters = ({
           />
         </div>
 
-        <div className="flex font-semibold justify-between text-white text-sm">
+        <div className="flex font-semibold justify-between text-sm">
           <p>{filters?.minPrice || minPrice}</p>
           <p>{filters?.maxPrice || maxPrice}</p>
         </div>
@@ -97,15 +94,12 @@ const Filters = ({
 
       {brands && brands.length > 0 && (
         <div className="flex flex-col">
-          <p className="text-xl text-white font-semibold mb-3">Brands</p>
+          <p className="text-xl font-semibold mb-3">Brands</p>
 
           <div className="flex flex-col gap-2">
             {brands.map((brand) => {
               return (
-                <div
-                  key={brand}
-                  className="flex gap-2 text-gray-200 items-center"
-                >
+                <div key={brand} className="flex gap-2 items-center">
                   <BrandSelector
                     brand={brand}
                     filters={filters}

@@ -41,7 +41,9 @@ const CategorySelector = ({ filters, category, setFilters }: PropsType) => {
   return (
     <div
       className={`relative h-5 w-5 rounded-full ${
-        isSelected ? "border-2 outline border-white" : "border border-gray-400"
+        isSelected
+          ? "border-4 sm:border-2 outline outline-black sm:outline-white border-black sm:border-white"
+          : "border border-gray-700 sm:border-gray-400"
       }`}
     >
       <input
