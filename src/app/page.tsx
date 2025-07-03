@@ -10,6 +10,7 @@ export default function Home() {
   const searchParams = useSearchParams();
   const categorySearchParam = searchParams.get("category");
   const priceSearchParam = searchParams.get("price");
+  const searchQuery = searchParams.get("search");
 
   const products = useSelector(selectProducts);
   const [minPrice, setMinPrice] = useState<number>();
@@ -43,6 +44,17 @@ export default function Home() {
     setMinPrice(Math.min(...prices));
     setMaxPrice(Math.max(...prices));
 
+    if (searchQuery) {
+      filtered = filtered.filter((product) => {
+        const query = searchQuery.toLowerCase();
+        const titleMatch = product.title.toLowerCase().includes(query);
+        const brandMatch = product.brand?.toLowerCase().includes(query);
+        const categoryMatch = product.category.toLowerCase().includes(query);
+
+        return titleMatch || brandMatch || categoryMatch;
+      });
+    }
+
     if (filters?.minPrice !== undefined) {
       filtered = filtered.filter(
         (product) => product.price >= filters.minPrice!
@@ -68,7 +80,7 @@ export default function Home() {
       );
     }
     setFilteredProducts(filtered);
-  }, [products, filters]);
+  }, [products, filters, searchQuery]);
 
   useEffect(() => {
     if (categorySearchParam) {
@@ -110,6 +122,14 @@ export default function Home() {
 
         <div className="flex flex-col grow p-1 w-full gap-5">
           <h1 className="text-blue-950 text-4xl font-bold">Product Listing</h1>
+          {searchQuery && (
+            <p className="text-lg font-semibold text-gray-600">
+              Showing results for:{" "}
+              <span className="text-gray-500 font-medium">
+                &apos;{searchQuery}&apos;
+              </span>
+            </p>
+          )}
 
           {filteredProducts && filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 justify-center w-full">
