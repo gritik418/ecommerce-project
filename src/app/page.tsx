@@ -94,7 +94,7 @@ export default function Home() {
   }, [priceSearchParam, categorySearchParam]);
 
   return (
-    <div className="flex min-h-screen bg-blue-50">
+    <div className="flex min-h-screen bg-blue-50/50">
       <div className="flex container gap-6 mx-auto py-12">
         <div className="flex w-[380px]">
           <Filters
