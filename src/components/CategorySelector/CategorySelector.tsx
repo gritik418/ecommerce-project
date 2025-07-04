@@ -37,7 +37,7 @@ const CategorySelector = ({ filters, category, setFilters }: PropsType) => {
 
   useEffect(() => {
     setIsSelected(filters.category.toLowerCase() === category.toLowerCase());
-  }, [filters.category]);
+  }, [filters.category, category]);
   return (
     <div
       className={`relative h-5 w-5 rounded-full ${

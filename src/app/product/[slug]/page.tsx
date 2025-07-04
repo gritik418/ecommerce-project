@@ -74,7 +74,7 @@ const ProductPage = () => {
     <div className="min-h-[80vh] px-4 sm:px-0 py-10">
       <div className="container mx-auto gap-8 flex flex-col sm:flex-row">
         {product?.images && (
-          <div className="flex w-full sm:min-w-[50%] lg:min-w-[40%]">
+          <div className="flex w-full sm:min-w-[50%] sm:max-w-[50%] lg:min-w-[40%] lg:max-w-[40%]">
             <ImageGallery images={product.images} />
           </div>
         )}
